@@ -1,5 +1,11 @@
+# NOMBRE: Everson Daniel Cumbalaza Benavides
+# GRUPO: 213022_426
+# PROGRAMA: Ingenieria de Sistemas - Fundamentos de Programacion
+# CODIGO FUENTE: Autoria Propia
+
 import os
 
+# Limpia la consola en cada ejecucion.
 os.system('cls')
 
 
@@ -24,15 +30,20 @@ def descomponer_numero(numero: int):
     dos dígitos cada uno. Ejemplo: N=121536 -> a=12 b=15 c=36 
     """
 
+    # Creando la lista que almacenara los numeros separados
     nums_dos_digitos = []
-    num = ""
+    num = ""  # almacenara los numeros de 2 cifras
 
+    # Itera cada digito del numero ingresado como cadena:
     for digito in str(numero):
         num += digito
         if len(num) == 2:
+            # Si la string num ya contiene 2 numeros se agrega el numero
+            # a la lista y se vacia la variable.
             nums_dos_digitos.append(num)
             num = ""
 
+    # Retorna un diccionario {a: num1, b: num2, c: num3}
     return dict(zip("abc", nums_dos_digitos))
 
 
@@ -44,9 +55,12 @@ def calcular_tabla(a, b):
 
     print(f"- Tabla de multiplicar de a = {a} hasta b = {b}:\n")
 
+    # Convierte los argumentos a y b a entros:
     a, b = int(a), int(b)
     if a < b:
+        # Si a es menor que b:
         for m in range(a, b + 1):
+            # Generando la tabla de multiplicar:
             for n in range(1, 11):
                 print(f"{m} x {n} = {m * n}", end=", ")
             print("")
@@ -61,10 +75,17 @@ def unir(a: int, c: int):
     unir a y c el número devuelto debe quedar de 4 cifras 
     Ejemplo: a=12 c=36 número queda =1236 
     """
+
+    # Une lso valores de a y c, que son strings (temporalmente) y los convierte a entero.
     return int(a + c)
 
 
 def principal():
+    """
+    Programa principal.
+    """
+
+    # Crando un bucle hasta que el numero del usuario sea valido:
     while True:
         try:
             numero_usuario = int(input("Ingrese un numero de 6 digitos: "))
@@ -76,6 +97,7 @@ def principal():
 
     print(f"\n- Numero Ingresado: {numero_usuario}\n")
 
+    # Ejecutando cada una de las funciones y mostrando en pantalla el
     numeros_separados = descomponer_numero(numero_usuario)
     print(f"- Numero Descompuesto: {numeros_separados}\n")
     num_a = numeros_separados["a"]
@@ -86,6 +108,9 @@ def principal():
 
 
 if __name__ == "__main__":
+    print("========================================")
+    print("      Problema 7: Numero de 6 digitos.      ")
+    print("========================================\n")
     principal()
 
     input("\nPresione ENTER para salir.\n")
