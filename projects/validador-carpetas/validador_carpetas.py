@@ -6,7 +6,7 @@ os.system('cls')
 
 RUTA_ACTUAL = Path(__file__).parent
 CARPETA_SOURCE = RUTA_ACTUAL / "src"
-ruta_carpeta_proyecto = CARPETA_SOURCE / "mi-proyecto"
+ruta_carpeta_proyecto = CARPETA_SOURCE / "mi-proyecto-ejemplo"
 
 carpetas_base = {
     "config": ".csv",
@@ -16,9 +16,10 @@ carpetas_base = {
 }
 
 nombre_archivo = "report.txt"
+ruta_archivo_txt = RUTA_ACTUAL/nombre_archivo
 
 # ----------
-with open(nombre_archivo, 'w', encoding='utf-8') as archivo:
+with open(ruta_archivo_txt, 'w', encoding='utf-8') as archivo:
     # Crea el archivo vacío
     archivo.write(
         f"REPORTE DE ERRORES:\n Ruta: {ruta_carpeta_proyecto}:\n\n")
@@ -31,7 +32,7 @@ def write_in_txt(texto: str):
     Escribe lo que se reciba como argumento en un archivo TXT.
     """
 
-    with open(nombre_archivo, 'a', encoding='utf-8') as archivo_txt:
+    with open(ruta_archivo_txt, 'a', encoding='utf-8') as archivo_txt:
         archivo_txt.write(f"{texto}\n")
 
 
