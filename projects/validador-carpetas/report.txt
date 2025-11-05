@@ -1,0 +1,7 @@
+REPORTE DE ERRORES:
+ Ruta: E:\code-workspace\python-code\python-practice\copilot-validador-carpetas\src\mi-proyecto:
+
+⚠️ Directorio no encontrado: E:\code-workspace\python-code\python-practice\copilot-validador-carpetas\src\mi-proyecto\config\daniel.db
+⚠️ Directorio no encontrado: E:\code-workspace\python-code\python-practice\copilot-validador-carpetas\src\mi-proyecto\config\uala.jpeg
+⚠️ Directorio no encontrado: E:\code-workspace\python-code\python-practice\copilot-validador-carpetas\src\mi-proyecto\data\key.html
+⚠️ Directorio no encontrado: E:\code-workspace\python-code\python-practice\copilot-validador-carpetas\src\mi-proyecto\output\learn.xlxs
