@@ -2,12 +2,12 @@ import json
 import os
 import datetime
 
-# Limpiando la consola en cada nueva ejecucion:
+# Limpiando la consola en cada nueva ejecución:
 os.system('cls')
 
 
 class JsonManager:
-    """Recibe una ruta de un archivo .JSON y crea una instancia que permite acceder a metodos que 
+    """Recibe una ruta de un archivo .JSON y crea una instancia que permite acceder a métodos que 
     leen y escriben em dicho archivo."""
 
     def __init__(self, ruta):  # path
@@ -78,7 +78,7 @@ class GestorDeTareas:
             if confirmar == 's':
                 if lectura_json[codigo]["Estado"] is False:
                     lectura_json[codigo]["Estado"] = True
-                    self.archivo_json.writte_json(lectura_json)
+                    self.archivo_json.write_json(lectura_json)
                     print("Has completado la tarea.")
                 else:
                     print("Ya haz completado esta tarea.")
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     print("      TO-DO LIST by DannyDev      ")
     print("========================================\n")
 
-    tareas_json = JsonManager("projects/to-do-list/task_list.json")
+    tareas_json = JsonManager("app/appSources/task_list.json")
     GESTOR = GestorDeTareas(tareas_json)
     GESTOR.mostrar_tareas()
 
