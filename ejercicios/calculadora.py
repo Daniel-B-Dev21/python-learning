@@ -1,80 +1,71 @@
-print("------------------------------------")
-print("CALCULADORA EN PYTHON")
-print("------------------------------------")
+from abc import ABC, abstractmethod
+import os
 
-print("""Las operaciones que puede realizar esta calculadora son:
-1. SUMA
-2. RESTA
-3. MULTIPLICACION
-4. DIVISION
-5. POTENCIACION
-""")
-
-operacion=int(input("Selecciona la operacion que deseas realizar (1, 2, 3, 4, 5): "))
-if operacion > 5:
-    print("Haz seleccionado una operacion incorrecta")
-
-else:
-    if operacion == 1:
-        print(f"Haz seleccionado la opcion SUMA")
-        num1=int(input("Primer numero: "))
-        num2=int(input("Segundo numero: "))
-        suma=num1+num2
-        print("------------------------------------")
-        print(f"{num1} + {num2} = {suma}")
-        print("------------------------------------")
-
-    elif operacion == 2:
-        print(f"Haz seleccionado la opcion RESTA")
-        num1=int(input("Primer numero: "))
-        num2=int(input("Segundo numero: "))
-        resta=num1-num2
-        print("------------------------------------")
-        print(f"{num1} - {num2} = {resta}")
-        print("------------------------------------")
-
-    elif operacion == 3:
-        print(f"Haz seleccionado la opcion MULTIPLICACION")
-        num1=int(input("Primer numero: "))
-        num2=int(input("Segundo numero: "))
-        mult=num1*num2
-        print("------------------------------------")
-        print(f"{num1} * {num2} = {mult}")
-        print("------------------------------------")
-
-    elif operacion == 4:
-        print(f"Haz seleccionado la opcion DIVISION")
-        num1=int(input("Primer numero: "))
-        num2=int(input("Segundo numero: "))
-        div=num1/num2
-        print("------------------------------------")
-        print(f"{num1} / {num2} = {div}")
-        print("------------------------------------")
-
-    elif operacion == 5:
-        print(f"Haz seleccionado la opcion POTENCIACION")
-        num1=int(input("Primer numero: "))
-        num2=int(input("Segundo numero (sera el exponente): "))
-        poten=num1**num2
-        print("------------------------------------")
-        print(f"{num1} elevado a la {num2} = {poten}")
-        print("------------------------------------")
-
-print("------------------------------------")
-print("SE HA COMPLETADO LA EJECUCION DEL PROGRAMA")
-print("------------------------------------")
+os.system('cls')
 
 
+# CLASE OPERACION
+class Operacion(ABC):
+
+    @abstractmethod
+    def ejecutar(self, a, b):
+        pass
 
 
-    
+# TIPOS DE OPERACION
+class Suma(Operacion):
 
-    
-
-
-        
-
+    def ejecutar(self, a, b):
+        return a + b
 
 
+class Resta(Operacion):
+
+    def ejecutar(self, a, b):
+        return a - b
 
 
+class Multiplicacion(Operacion):
+
+    def ejecutar(self, a, b):
+        return a * b
+
+
+class Division(Operacion):
+
+    def ejecutar(self, a, b):
+        return a / b
+
+
+class Potenciacion(Operacion):
+    def ejecutar(self, a, b):
+        return pow(a, b)
+
+
+# CLASE CALCULADORA
+class Calculadora:
+    def __init__(self) -> None:
+        self.operaciones = {}
+
+    def anadir_operacion(self, nombre, operacion):
+        self.operaciones[nombre] = operacion
+
+    def calcular(self, operacion, a, b):
+        if operacion not in self.operaciones:
+            raise ValueError(f"La operacion '{operacion}' no esta disponible.")
+        return self.operaciones[operacion].ejecutar(a, b)
+
+
+# ADICION DE OPERACIONES A LA CALCULADORA:
+mi_calculadora = Calculadora()
+mi_calculadora.anadir_operacion("suma", Suma())
+mi_calculadora.anadir_operacion("resta", Resta())
+mi_calculadora.anadir_operacion("multiplicacion", Multiplicacion())
+mi_calculadora.anadir_operacion("division", Division())
+mi_calculadora.anadir_operacion("potenciacion", Potenciacion())
+
+print(mi_calculadora.calcular("suma", 12, 3))
+print(mi_calculadora.calcular("resta", 12, 3))
+print(mi_calculadora.calcular("multiplicacion", 12, 3))
+print(mi_calculadora.calcular("division", 12, 3))
+print(mi_calculadora.calcular("potenciacion", 12, 3))
