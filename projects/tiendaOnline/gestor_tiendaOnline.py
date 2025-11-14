@@ -1,119 +1,53 @@
-import os
+class Shop:
 
-os.system('cls')
+    def __init__(self, nit, name) -> None:
+        self.nit = nit
+        self.name = name
+        self.inventory = {}
+
+    def add_category(self, category_name):
+        """
+        Add category to inventory shop.
+        """
+
+        if self.inventory.get(category_name, None) is None:
+            self.inventory[category_name] = {}
+
+    def add_product(self, product, category):
+        """
+        Add product to Shop inventory.
+        """
+
+        self.inventory[category][product.id_product] = {
+            "name": product.name,
+            "price": product.price,
+            "stock": product.stock
+        }
+
+    def remove_product(self, id_product):
+        pass
+
+    def update_product(self, id_product):
+        pass
 
 
-class Producto:
+class Product:
 
-    def __init__(self, id, nombre, precio, stock) -> None:
-        self.id = id
-        self.nombre = nombre
-        self.precio = precio
+    def __init__(self, id_product, name, price, stock):
+        self.id_product = id_product
+        self.name = name
+        self.price = price
         self.stock = stock
 
-    def mostrar_info(self):
-        """
-        Muestra toda la informacion del producto.
-        """
 
-        print(
-            f"Id: {self.id}, Nombre: {self.nombre}, Precio: {self.precio}, Stock: {self.stock}")
+my_shop = Shop(13758821, "Apple Store")
+my_shop.add_category("technology")
 
-    def actualizar_stock(self, cantidad):
-        """
-        Actualiza el stock del producto, si la cantidad es entera positiva,
-        aumenta el stock, de lo contrario, si es negativa lo disminuye."
-        """
+item_1 = Product("P100", "iPhone 17 Pro Max", 3225.12, 523)
+item_2 = Product("P101", "Macbook Pro 12", 5400.5, 130)
 
-        if cantidad < 0:
-            if (cantidad * -1) > self.stock:
-                raise ValueError(
-                    "Candidad ingresada mayor a unidades disponibles.")
-
-        self.stock += cantidad
-        print("Stock actualizado con exito.")
-
-        return True
+my_shop.add_product(item_1, "technology")
+my_shop.add_product(item_2, "technology")
 
 
-class Cliente:
-
-    def __init__(self, id, nombre, email):
-        self.id = id
-        self.nombre = nombre
-        self.email = email
-        self.carrito = []
-
-    def agregar_al_carrito(self, producto, cantidad):
-        """
-        Agrega un producto al carrito del cliente.
-        """
-
-        if len(self.carrito) > 0:
-            for cliente_producto in self.carrito:
-                if producto in cliente_producto:
-                    cliente_producto[1] += cantidad
-                    return True
-
-        self.carrito.append([producto, cantidad])
-        return True
-
-    def eliminar_del_carrito(self, producto):
-        """
-        Elimina un producto del carrito del cliente.
-        """
-        for p in self.carrito:
-            if producto in p:
-                self.carrito.remove(p)
-                return True
-        return False
-
-    def ver_carrito(self):
-        """
-        Muestra los productos del carrito del cliente.
-        """
-        if len(self.carrito) > 0:
-            print(
-                f"Carrito de {self.nombre} con {len(self.carrito)} productos :D\n")
-            contador = 1
-
-            for p in self.carrito:
-                print(f"Producto {contador}:")
-                p[0].mostrar_info()
-                print(f"Cantidad: {p[1]}\n")
-                contador += 1
-            return True
-        print(f"Carrito de {self.nombre} vacio :(")
-
-    def realizar_compra(self):
-        """
-        Si el carrito de compras contiene productos, calcula el total a pagar.
-        """
-
-        if len(self.carrito) > 0:
-            total_compra = 0
-
-            for p in self.carrito:
-                p[0].actualizar_stock(p[1] * -1)
-                total_compra += (p[0].precio * p[1])
-
-            print(f"\nTotal a pagar: ${total_compra}")
-            self.carrito = []
-            return True
-
-        return False
-
-
-arroz = Producto(1, "arroz", 10000, 50)
-papas = Producto(2, "papas", 8000, 110)
-cliente = Cliente("c1", "Daniel", "daniel@email.com")
-
-cliente.agregar_al_carrito(arroz, 12)
-cliente.agregar_al_carrito(papas, 12)
-cliente.agregar_al_carrito(papas, 13)
-cliente.ver_carrito()
-cliente.realizar_compra()
-cliente.ver_carrito()
-
-arroz.mostrar_info()
-papas.mostrar_info()
+print(my_shop.inventory)
