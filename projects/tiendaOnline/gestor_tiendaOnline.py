@@ -15,20 +15,19 @@ class Shop:
 
     def add_product(self, product, category):
         """
-        Add product to Shop inventory.
+        Add product to Shop inventory, or update.
         """
 
-        self.inventory[category][product.id_product] = {
-            "name": product.name,
-            "price": product.price,
-            "stock": product.stock
-        }
+        self.inventory[category][product.id_product] = product
 
-    def remove_product(self, id_product):
-        pass
-
-    def update_product(self, id_product):
-        pass
+    def remove_product(self, category_name, id_product):
+        """
+        Delete product from inventory.
+        """
+        if id_product in self.inventory[category_name]:
+            del self.inventory[category_name][id_product]
+            return True
+        return False
 
 
 class Product:
@@ -40,6 +39,30 @@ class Product:
         self.stock = stock
 
 
+class Customer:
+
+    def __init__(self, id_customer, name, email) -> None:
+        self.id_customer = id_customer
+        self.name = name
+        self.email = email
+        self.shopping_cart = []
+
+    def add_product_to_cart(self, product):
+        """Add product to shopping cart"""
+
+        if not product in self.shopping_cart:
+            self.shopping_cart.append(product)
+
+        else:
+            index = 0
+            for i in self.shopping_cart:
+                if i == product:
+                    item = self.shopping_cart[index]
+                    item.stock += product.stock
+                    return True
+                index += 1
+
+
 my_shop = Shop(13758821, "Apple Store")
 my_shop.add_category("technology")
 
@@ -49,5 +72,6 @@ item_2 = Product("P101", "Macbook Pro 12", 5400.5, 130)
 my_shop.add_product(item_1, "technology")
 my_shop.add_product(item_2, "technology")
 
-
-print(my_shop.inventory)
+my_customer = Customer("C100", "Daniel", "daniel@email.com")
+my_customer.add_product_to_cart(item_1)
+my_customer.add_product_to_cart(item_1)
