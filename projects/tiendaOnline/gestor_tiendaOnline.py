@@ -1,3 +1,6 @@
+import datetime as dt
+
+
 class Shop:
 
     def __init__(self, nit, name) -> None:
@@ -45,22 +48,44 @@ class Customer:
         self.id_customer = id_customer
         self.name = name
         self.email = email
-        self.shopping_cart = []
+        self.shopping_cart = {}
 
-    def add_product_to_cart(self, product):
+    def add_product_to_cart(self, product, cant: int):
         """Add product to shopping cart"""
 
-        if not product in self.shopping_cart:
-            self.shopping_cart.append(product)
+        product_add = {"product": product, "cant": cant}
+
+        if not product.id_product in self.shopping_cart:
+            self.shopping_cart[product.id_product] = product_add
+            return True
 
         else:
-            index = 0
-            for i in self.shopping_cart:
-                if i == product:
-                    item = self.shopping_cart[index]
-                    item.stock += product.stock
+            for p in self.shopping_cart:
+                if p == product.id_product:
+                    self.shopping_cart[product.id_product]['cant'] += cant
                     return True
-                index += 1
+
+    def calc_total_price_cart(self):
+        """
+        Calculate total price products added to cart.
+        """
+        total_price = 0
+
+        if len(list(self.shopping_cart)) > 0:
+            for product in self.shopping_cart.values():
+                item = product['product']
+                sub_total = item.price * product['cant']
+                total_price += sub_total
+
+        return round(float(total_price), 2)
+
+
+class Order:
+    def __init__(self, id_order, products, total) -> None:
+        self.id_order = id_order
+        self.products = products
+        self.total = total
+        self.date = dt.datetime.now()
 
 
 my_shop = Shop(13758821, "Apple Store")
@@ -73,5 +98,11 @@ my_shop.add_product(item_1, "technology")
 my_shop.add_product(item_2, "technology")
 
 my_customer = Customer("C100", "Daniel", "daniel@email.com")
-my_customer.add_product_to_cart(item_1)
-my_customer.add_product_to_cart(item_1)
+my_customer.add_product_to_cart(item_1, 12)
+my_customer.add_product_to_cart(item_2, 5)
+
+
+price_total_cart = my_customer.calc_total_price_cart()
+
+
+my_order = Order("ORD1", my_customer.shopping_cart, price_total_cart)
