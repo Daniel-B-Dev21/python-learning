@@ -1,7 +1,5 @@
-# NOMBRE: Everson Daniel Cumbalaza Benavides
-# GRUPO: 213022_426
-# PROGRAMA: Ingenieria de Sistemas - Fundamentos de Programacion
-# CODIGO FUENTE: Autoria Propia
+import os
+
 
 def mostrar_registro(registros):
     """
@@ -129,6 +127,7 @@ def mostrar_resultados_seleccion(atletas_mejor_tiempo, atletas_mejor_promedio):
 
 
 if __name__ == "__main__":
+    os.system('cls')
     print("SOLUCION PROBLEMA DE MATRICES\n")
     print("\n== PROBLEMA 1: CLASIFICACION LIGA DE ATLETISMO CORRIENDO LIGERO ==")
 
@@ -211,4 +210,4 @@ if __name__ == "__main__":
 
     # Input al final evita que la cosola se cierre instantaneamente
     # y se puedan vizualizar los resultados.
-    input("\nEnter para salir: ")
+    input("\nPresione ENTER para salir...")
