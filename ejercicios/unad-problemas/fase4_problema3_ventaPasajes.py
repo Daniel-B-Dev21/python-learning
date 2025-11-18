@@ -224,7 +224,6 @@ def programa_principal():
         if opcion_usuario == 2:
             print("\nRESUMEN SESION:\n")
             mostrar_cant_ventas()
-            print("\n", RECAUDOS)
             print(f"\nGANANCIAS TOTALES: ${sum(RECAUDOS)}")
             input("\nPresione ENTER para salir...")
             break
