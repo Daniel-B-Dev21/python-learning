@@ -1,8 +1,3 @@
-# NOMBRE: Everson Daniel Cumbalaza Benavides
-# GRUPO: 213022_426
-# PROGRAMA: Ingenieria de Sistemas - Fundamentos de Programacion
-# CODIGO FUENTE: Autoria Propia
-
 import os
 
 os.system('cls')
