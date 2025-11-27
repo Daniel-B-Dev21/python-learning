@@ -56,25 +56,25 @@ def main():
     """
     while True:
         try:
-            num_usuario = int(input("Escriba un numero: "))
+            num_usuario = int(
+                input("\nEscriba un numero (Digite 0 para salir): "))
             if num_usuario > 0:
                 if cant_cifras_es_par(num_usuario):
                     if es_multiplo_de_4(num_usuario):
                         print(
-                            f"Cant. Cifras Par: El numero {num_usuario} ES múltiplo de 4 y termina en 8.")
-                        break
+                            f"\nCant. Cifras Par: El numero {num_usuario} ES múltiplo de 4 y termina en 8.")
                     print(
-                        f"Cant. Cifras Par: El numero {num_usuario} NO ES múltiplo de 4 o NO termina en 8.")
-                    break
+                        f"\nCant. Cifras Par: El numero {num_usuario} NO ES múltiplo de 4 o NO termina en 8.")
 
                 else:
                     if es_capicua(num_usuario):
                         print(
-                            f"Cant. Cifras Impar: El numero {num_usuario} ES Capicua.")
-                        break
+                            f"\nCant. Cifras Impar: El numero {num_usuario} ES Capicua.")
                     print(
-                        f"Cant. Cifras Impar: El numero {num_usuario} NO ES Capicua.")
-                    break
+                        f"\nCant. Cifras Impar: El numero {num_usuario} NO ES Capicua.")
+            elif num_usuario == 0:
+                break
+
             else:
                 print("Ingrese un numero entero mayor a cero.")
 
@@ -84,4 +84,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    input("\nPresione ENTER para salir.")
