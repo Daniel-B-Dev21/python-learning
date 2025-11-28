@@ -1,14 +1,26 @@
+import os
+os.system('cls')
+
+
 class School:
 
     def __init__(self) -> None:
         self.courses = []
         self.students = []
+        self.payment_methods = {1: "Completo", 2: "Mensual"}
 
     def search_course(self, course_id):
+
         for course in self.courses:
             if course.course_id == course_id:
                 return course
         return None
+
+    def show_courses(self):
+
+        print("OFERTA DE CURSOS:\n")
+        for course in self.courses:
+            course.show_info()
 
     def add_courses(self, course):
         if not course in self.courses:
@@ -22,6 +34,21 @@ class School:
             return True
         return False
 
+    def validate_student_id(self, student_id):
+
+        id_found = False
+        for student in self.students:
+            if student_id == student.student_id:
+                id_found = True
+
+        return id_found
+
+    def show_students(self):
+
+        print("ESTUDIANTES MATRICULADOS:\n")
+        for student in self.students:
+            student.show_info()
+
 
 class Course:
 
@@ -32,6 +59,14 @@ class Course:
         self.duration = duration
         self.discount = discount
 
+    def show_info(self):
+        print(
+            f"ID Curso: {self.course_id}\n- Nombre: {self.course_name}\n- Precio por mes: ${self.monthly_price}\n- Duración (Meses): {self.duration}\n- Descuento (Pago Completo): {self.discount}%\n")
+
+    def show_payment_method(self):
+        print(
+            f"\nModalidades de pago:\n\nCurso: {self.course_name}\n1. Pago completo ({self.discount}% de descuento): ${self.calc_full_payment()}\n2. Pago mensual (por {self.duration} meses): ${self.monthly_price}")
+
     def calc_full_payment(self):
         sub_total_price = self.monthly_price * self.duration
         discount_value = sub_total_price * (self.discount / 100)
@@ -41,10 +76,24 @@ class Course:
 
 class Student:
 
-    def __init__(self, student_id, student_name, course_id) -> None:
+    def __init__(self, student_id, student_name, course_id, payment_method) -> None:
         self.student_id = student_id
         self.student_name = student_name
         self.course_id = course_id
+        self.payment_method = payment_method
+
+    def show_info(self):
+        print(
+            f"ID Estudiante: {self.student_id}\n- Nombre: {self.student_name}\n- ID Curso Matriculado: ${self.course_id}\n- Método de pago Elegido: {self.payment_method}\n")
+
+
+class PaymentMethod:
+
+    def __init__(self, pay_method_id, pay_method_name, pay_method_increase, pay_method_discount) -> None:
+        self.pay_method_id = pay_method_id
+        self.pay_method_name = pay_method_name
+        self.pay_method_increase = pay_method_increase
+        self.pay_method_discount = pay_method_discount
 
 
 unad_school = School()
@@ -59,7 +108,62 @@ unad_school.add_courses(programacion)
 unad_school.add_courses(diseno_grafico)
 unad_school.add_courses(redes)
 
-# Estudiantes:
-daniel = Student('E1', 'Daniel', 'C1')
-sofia = Student('E2', 'Daniel', 'C2')
-pedro = Student('E3', 'Pedro', 'C3')
+
+def registration(school: School):
+
+    while True:
+        try:
+            reg_num = int(input('Numero de estudiantes a inscribir: '))
+            if reg_num > 0:
+                break
+            print('Debe ingresar un valor mayor a cero.')
+        except ValueError:
+            print("Ha ingresado un valor no valido")
+
+    for reg in range(1, reg_num + 1):
+        print(f'Registro {reg}:')
+
+        while True:
+            reg_student_id = input('ID del Estudiante: ').upper()
+            if not school.validate_student_id(reg_student_id):
+                break
+            print('El ID ingresado ya esta registrado, ingrese uno diferente.')
+
+        reg_student_name = input('Nombre del Estudiante: ').capitalize()
+
+        school.show_courses()
+
+        while True:
+            reg_course_id = input(
+                'Código del curso al que se inscribe: ').upper()
+            if not school.search_course(reg_course_id) is None:
+                break
+            print(f"No se encontró el curso con el código '{reg_course_id}'")
+
+        reg_selected_course = school.search_course(reg_course_id)
+        reg_selected_course.show_payment_method()  # type: ignore
+
+        while True:
+            try:
+                reg_payment_method = int(
+                    input("Elija un método de pago (1-2): "))
+                if reg_payment_method in school.payment_methods:
+                    break
+                print('Ha elegido una opción no valida')
+            except ValueError:
+                print('Ha elegido una opción no valida')
+
+        new_student = Student(reg_student_id, reg_student_name,
+                              reg_course_id, reg_payment_method)
+
+        if school.add_student(new_student):
+            print('El estudiante se ha registrado exitosamente')
+
+        else:
+            print("Ha ocurrido un error al realizar el registro.")
+
+
+registration(unad_school)
+
+
+unad_school.show_students()
