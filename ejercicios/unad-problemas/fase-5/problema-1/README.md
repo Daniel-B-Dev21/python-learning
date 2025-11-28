@@ -36,7 +36,3 @@ Se requiere desarrollar un programa que permita inscribir a un número **X** de 
 3.  **Costo Total Bruto** de todos los cursos inscritos (sin aplicar ningún descuento).
 4.  **Monto Total de Descuentos** aplicados (solo para los estudiantes que eligieron Pago Completo).
 5.  **Valor Neto Total** de todas las inscripciones (después de aplicar los descuentos).
-
----
-
-¿Necesitas que te ayude a plantear la lógica o un esquema de cómo abordarías la solución a este problema de programación?
